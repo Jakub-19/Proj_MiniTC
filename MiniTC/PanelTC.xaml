@@ -19,7 +19,7 @@
                 <Label Content="{Binding Source={x:Static resx:Resources.Path}}" Height="30"/>
             <Label Content="{Binding Path=Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,                        
                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
-                    BorderThickness="1" BorderBrush="Gray" Foreground="Gray" Width="300" Height="30" />
+                    BorderThickness="1" BorderBrush="Gray" Foreground="Gray" Width="300" Height="30"/>
          </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Margin="0,5,20,5">

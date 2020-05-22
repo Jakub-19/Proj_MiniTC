@@ -22,12 +22,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        
-        <local:PanelTC Grid.Column="0" />
-        <local:PanelTC Grid.Column="1" />
-        <Button Grid.Row="1" Grid.ColumnSpan="2" Margin="350,5,350,5" Content="{Binding Source={x:Static resx:Resources.Copy}}"/>
+
+        <local:PanelTC Grid.Column="0" Path="{Binding Path=FirstPath, Mode=TwoWay}"/>
+        <local:PanelTC Grid.Column="1" Path="{Binding Path=SecondPath, Mode=TwoWay}" PathContent="{Binding Path=SecondContent, Mode=TwoWay}" />
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Margin="350,5,350,5" Command="{Binding Copy}" Content="{Binding Source={x:Static resx:Resources.Copy}}"/>
     </Grid>
 </Window>
-    
-<!--Path="AAA" Drivers="{Binding Path=Drivers}" PathContent="{Binding LeftPanelPathContent}"
-    Path="BBB" Drivers="{Binding Path=Drivers}"-->

@@ -42,6 +42,7 @@ namespace MiniTC
             set
             {
                 SetValue(PathProperty, value);
+                //Aktualizacja zawartosci listy plikow ze wzgledu na zmieniona sciezke
                 if (Directory.Exists(Path))
                     RefreshContent(value);
             }
@@ -73,12 +74,13 @@ namespace MiniTC
             set { SetValue(PathContentProperty, value); }
         }
 
+        //Wyznaczenie dostepnych napedow
         private void ComboBox_DropDownOpened(object sender, EventArgs e)
         {
-            Debug.WriteLine("ComboBox_DropDownOpened");
             Drives = Directory.GetLogicalDrives();
         }
 
+        //Wypelnienie listy zawartoscia danej sciezki
         private void RefreshContent(string p)
         {
             string[] dirs = Directory.GetDirectories(p);
@@ -89,13 +91,24 @@ namespace MiniTC
                 filesAndDirs.Add("..");
 
             foreach (var v in dirs)
+            {
+                //Pominiecie folderow odmawiajacych dostepu
+                try
+                {
+                    Directory.GetDirectories(v);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
                 filesAndDirs.Add("<D> " + v.Substring(p.Length));
+            }
             foreach (var v in files)
                 filesAndDirs.Add(v.Substring(p.Length));
 
             PathContent = filesAndDirs.ToArray();
-
         }
+        //Poruszanie sie po dysku
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ListBox).SelectedItem != null)
@@ -120,21 +133,14 @@ namespace MiniTC
                 if (item.Contains("<D> "))
                 {
                     temp = temp + item.Substring(4) + "\\";
-                    try
-                    {
-                        Directory.GetDirectories(temp);
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
                     Path = temp;
                     return;
                 }
+
                 Path = temp + item;
             }
         }
-
+        //Ustawienie sciezki po wyborze napedu
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Path = ((ComboBox)sender).SelectedItem.ToString();
