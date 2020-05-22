@@ -143,7 +143,9 @@ namespace MiniTC
         //Ustawienie sciezki po wyborze napedu
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Path = ((ComboBox)sender).SelectedItem.ToString();
+            var item = ((ComboBox)sender).SelectedItem;
+            if (item != null)
+                Path = item.ToString();
         }
     }
 }
